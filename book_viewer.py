@@ -19,7 +19,7 @@ def main():
     # Set page layout to full width
     st.set_page_config(layout="wide")
 
-    st.title("പരിപാടി ഓഡിറ്റ് ബുക്ക്")
+    st.title("ഓഡിറ്റ് ബുക്ക്")
 
     excel_file = 'red_book.xlsx'
     df = pd.read_excel(excel_file)

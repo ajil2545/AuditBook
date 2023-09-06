@@ -30,7 +30,7 @@ def main():
     with col1:
         column_to_sum = "തുക"
         st.write("##### ഡാറ്റ ഫിൽറ്ററേഷൻ")
-        amount_values = ["", 1000, 2000, 5000, 10000, 15000, 20000, 25000]
+        amount_values = ["", 500, 1000, 2000, 5000, 10000, 15000, 20000, 25000]
         selected_amount = st.selectbox("തുക നൽകുക:", amount_values)
         st.write("##### ഡാറ്റ തിരയുക")
         search_term = st.text_input("തിരയൽ പദം നൽകുക:")
@@ -42,12 +42,11 @@ def main():
             search_term = str(search_term)
             filtered_df = df[
                 df.apply(lambda row: any(search_term.lower() in str(cell).lower() for cell in row), axis=1)]
-            filtered_by_amount = filtered_df[(filtered_df[column_to_sum] >= selected_amount)]
             result_heading = "### തിരയൽ ഫലം"
         else:
             filtered_df = df
-            filtered_by_amount = filtered_df[(filtered_df[column_to_sum] >= selected_amount)]
-            result_heading = "### മുഴുവൻ ലിസ്റ്റ് "
+            result_heading = "### മുഴുവൻ ലിസ്റ്റ്"
+        filtered_by_amount = filtered_df[(filtered_df[column_to_sum] >= selected_amount)]
         total_amount = (filtered_by_amount[column_to_sum].sum()
                         if selected_amount else filtered_df[column_to_sum].sum())
         col1, col2, col3 = st.columns([1, 1.25, 1])
@@ -55,7 +54,6 @@ def main():
             st.write(result_heading)
         with col3:
             st.write(f"###### മൊത്തം തുക: ₹{format_indian_number(total_amount)}")
-
         st.dataframe(filtered_by_amount, width=table_width, hide_index=True)
 
 
